@@ -15,5 +15,5 @@ jobs:
     name: Verify
     uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v3
     with:
-      ff-goal: '-P run-its verify'         # site use project version for reporting
-      verify-goal: '-P run-its verify'     # should be the same as for first build
+      ff-goal: '-Drat.skip=true -P run-its verify'         # site use project version for reporting
+      verify-goal: '-Drat.skip=true -P run-its verify'     # should be the same as for first build
