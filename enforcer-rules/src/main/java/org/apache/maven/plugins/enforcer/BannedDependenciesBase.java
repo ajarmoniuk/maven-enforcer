@@ -20,7 +20,7 @@ package org.apache.maven.plugins.enforcer;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import com.google.common.base.Strings;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleException;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
@@ -74,7 +74,6 @@ abstract class BannedDependenciesBase extends AbstractNonCacheableEnforcerRule {
             throw new EnforcerRuleException("Cannot resolve MavenSession", e);
         }
 
-        DependencyNode rootNode = ArtifactUtils.resolveTransitiveDependencies(helper);
         if (!searchTransitive) {
             String result = session.getCurrentProject().getDependencyArtifacts().stream()
                     .filter(a -> !validate(a))
@@ -91,6 +90,7 @@ abstract class BannedDependenciesBase extends AbstractNonCacheableEnforcerRule {
             }
         } else {
             StringBuilder messageBuilder = new StringBuilder();
+            DependencyNode rootNode = ArtifactUtils.resolveTransitiveDependencies(helper);
             if (!validate(rootNode, 0, messageBuilder)) {
                 throw new EnforcerRuleException(messageBuilder.toString());
             }
@@ -105,7 +105,7 @@ abstract class BannedDependenciesBase extends AbstractNonCacheableEnforcerRule {
                         .map(childNode -> validate(childNode, level + 1, childMessageBuilder))
                         .reduce(true, Boolean::logicalAnd)) {
             messageBuilder
-                    .append(StringUtils.repeat("   ", level))
+                    .append(Strings.repeat("   ", level))
                     .append(ArtifactUtils.toArtifact(node).getId());
             if (rootFailed) {
                 messageBuilder.append(" <--- ").append(getErrorMessage());
