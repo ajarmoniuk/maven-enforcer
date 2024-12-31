@@ -19,9 +19,10 @@
 package org.apache.maven.enforcer.rule.api;
 
 /**
- * An exception occurring during the execution of a rule. Based off of
- * EnforcerRuleException, but separated to keep the rule dependencies to a
- * minimum.
+ * An exception occurring during the execution of a rule.
+ * <p>
+ * Enforcer plugin takes decision based on configuration and {@code Enforcer Rule} level
+ * whether build should pass or fail.
  *
  * @author <a href="mailto:brianf@apache.org">Brian Fox</a>
  */
@@ -40,7 +41,9 @@ public class EnforcerRuleException extends Exception {
      * Gets the long message.
      *
      * @return the long message
+     * @deprecated not used
      */
+    @Deprecated
     public String getLongMessage() {
         return longMessage;
     }
@@ -49,7 +52,9 @@ public class EnforcerRuleException extends Exception {
      * Gets the source.
      *
      * @return the source
+     * @deprecated not used
      */
+    @Deprecated
     public Object getSource() {
         return source;
     }
@@ -58,10 +63,12 @@ public class EnforcerRuleException extends Exception {
      * Construct a new <code>EnforcerRuleException</code> exception providing
      * the source and a short and long message.
      *
-     * @param source the source
+     * @param source       the source
      * @param shortMessage the short message
-     * @param longMessage the long message
+     * @param longMessage  the long message
+     * @deprecated {@code source} and {@code longMessage} are not used
      */
+    @Deprecated
     public EnforcerRuleException(Object source, String shortMessage, String longMessage) {
         super(shortMessage);
         this.source = source;
@@ -74,7 +81,7 @@ public class EnforcerRuleException extends Exception {
      * <code>message</code>.
      *
      * @param message the message
-     * @param cause the cause
+     * @param cause   the cause
      */
     public EnforcerRuleException(String message, Exception cause) {
         super(message, cause);
@@ -86,7 +93,7 @@ public class EnforcerRuleException extends Exception {
      * <code>message</code>.
      *
      * @param message the message
-     * @param cause the cause
+     * @param cause   the cause
      */
     public EnforcerRuleException(String message, Throwable cause) {
         super(message, cause);
@@ -100,5 +107,15 @@ public class EnforcerRuleException extends Exception {
      */
     public EnforcerRuleException(String message) {
         super(message);
+    }
+
+    /**
+     * Construct a new <code>EnforcerRuleException</code> exception wrapping
+     * an underlying <code>Throwable</code>.
+     *
+     * @param cause the cause
+     */
+    public EnforcerRuleException(Throwable cause) {
+        super(cause);
     }
 }

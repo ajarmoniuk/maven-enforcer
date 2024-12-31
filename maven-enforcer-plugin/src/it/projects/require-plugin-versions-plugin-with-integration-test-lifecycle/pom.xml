@@ -68,7 +68,7 @@
         <configuration>
           <!-- recommended: use p2-based target platform resolver -->
           <resolver>p2</resolver>
-          <executionEnvironment>JavaSE-@maven.compiler.source@</executionEnvironment>
+          <executionEnvironment>JavaSE-1.8</executionEnvironment>
         </configuration>
       </plugin>
       <plugin>
@@ -88,7 +88,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>2.4.3</version>
+        <version>@version.maven-resources-plugin@</version>
       </plugin>
     </plugins>
   </build>
